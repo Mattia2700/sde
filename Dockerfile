@@ -3,7 +3,7 @@ FROM prom/prometheus:latest as prometheus
 FROM prom/node-exporter:latest as node-exporter
 
 # Build Grafana from source
-FROM grafana/grafana:latest as grafana
+FROM grafana/grafana-enterprise:latest as grafana
 
 # Copy Prometheus configuration file to the image
 COPY ./prometheus-config.yml /etc/prometheus/prometheus.yml
@@ -28,8 +28,8 @@ COPY --from=grafana /usr/share/grafana /usr/share/grafana
 COPY --from=grafana /etc/prometheus/prometheus.yml /etc/prometheus/prometheus.yml
 
 # Set up volumes and network mode
-VOLUME ["/prometheus", "/grafana"]
-EXPOSE 9090 3000
+VOLUME [ "/grafana" ]
+EXPOSE 3000 9090 9100
 
 # Entry point script to start services
 COPY entrypoint.sh /entrypoint.sh
