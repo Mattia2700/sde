@@ -28,7 +28,7 @@ COPY --from=grafana /usr/share/grafana /usr/share/grafana
 COPY --from=grafana /etc/prometheus/prometheus.yml /etc/prometheus/prometheus.yml
 
 # Set up volumes and network mode
-VOLUME [ "/grafana" ]
+VOLUME [ "/grafana", "/data" ]
 EXPOSE 3000 9090 9100
 
 # Entry point script to start services
